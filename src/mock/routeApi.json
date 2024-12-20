@@ -1,0 +1,268 @@
+{
+  "name": "routeApiDict",
+  "version": "1.0.0",
+  "description": "钱包管理后台路由及相关功能接口字典",
+  "update": "2023-01-10 15:06:18",
+  "info": [{
+      "title": "登录",
+      "name": "login",
+      "path": "/login",
+      "apiList": ["/api/v1/user/login"]
+    },
+    {
+      "title": "重定向",
+      "name": "oauthRedirect",
+      "path": "/oauth/redirect",
+      "apiList": ["/api/v1/oauth/redirect"]
+    },
+    {
+      "title": "找回密码",
+      "name": "passwordFind",
+      "path": "/password/find",
+      "apiList": ["/api/v1/user/reset_password/email_captcha", "/api/v1/user/reset_password/verify_email_captcha", "/api/v1/user/reset_password"
+      ]
+    },
+    {
+      "title": "首页",
+      "name": "index",
+      "path": "/",
+      "apiList": ["/api/v1/user/login_user_info"]
+    },
+    {
+      "title": "币种管理",
+      "name": "tokenIndex",
+      "access": "",
+      "children": [{
+          "title": "上币",
+          "name": "pushToken",
+          "path": "/push_token",
+          "apiList": ["/api/v1/push_new_token"]
+        },
+        // {
+        //   "title": "修改合约操作",
+        //   "name": "changeContract",
+        //   "path": "/change_contract",
+        //   "apiList": ["/api/v1/change_contract", "/api/v1/update_change_contract", "/api/v1/create_change_contract", "/api/v1/change_contract_check_old_asset", "/api/v1/change_contract_clear_asset", "/api/v1/change_contract_check_new_onchain_asset", "/api/v1/change_contract_use_check_new_asset", "/api/v1/change_contract_open_deposit_withdraw"]
+        // },
+        // {
+        //   "title": "修改合约记录",
+        //   "name": "changeContractRecord",
+        //   "path": "/change_contract_record",
+        //   "apiList": ["/api/v1/change_contract_record", "/api/v1/change_contract_record", "/api/v1/create_change_contract_record"]
+        // },
+        {
+          "title": "币种列表",
+          "name": "token",
+          "path": "/token",
+          "apiList": ["/api/v1/tokens", "/api/v1/token_types", "/api/v1/create_token", "/api/v1/update_token", "/api/v1/update_token", "/api/v1/update_token", "/api/v1/update_token"]
+        },
+        {
+          "title": "币种设置",
+          "name": "tokenDetails",
+          "path": "/token_details",
+          "apiList": ["/api/v1/token_details", "/api/v1/create_token_details", "/api/v1/update_token_details"]
+        },
+        {
+          "title": "币种网络",
+          "name": "tokengrpc",
+          "path": "/token_grpc",
+          "apiList": ["/api/v1/token_grpcs", "/api/v1/create_token_grpcs", "/api/v1/update_token_grpcs"]
+        },
+        {
+          "title": "手续费",
+          "name": "tokenMinerFee",
+          "path": "/token_miner_fee",
+          "apiList": ["/api/v1/miner_fee", "/api/v1/delete_miner_fee", "/api/v1/update_miner_fee", "/api/v1/create_miner_fee"]
+        }
+      ]
+    },
+    {
+      "title": "地址管理",
+      "name": "addressIndex",
+      "children": [{
+          "title": "地址统计",
+          "name": "addressReport",
+          "path": "/address_report",
+          "apiList": ["/api/v1/address_count_chart"]
+        },
+        {
+          "title": "地址列表",
+          "name": "addressTable",
+          "path": "/address_table",
+          "apiList": ["/api/v1/addresses", "/api/v1/delete_addresses", "/api/v1/update_addresses", "/api/v1/create_address"]
+        },
+        {
+          "title": "账户地址",
+          "name": "accountAddress",
+          "path": "/account_address",
+          "apiList": ["/api/v1/account_address", "/api/v1/delete_account_address", "/api/v1/update_account_address", "/api/v1/create_account_address"]
+        },
+        {
+          "title": "地址黑名单",
+          "name": "blackList",
+          "path": "/black_list",
+          "apiList": ["/api/v1/black_list", "/api/v1/delete_black_list", "/api/v1/update_black_list", "/api/v1/create_black_list"]
+        },
+        {
+          "title": "添加热钱包地址",
+          "name": "addHotAddress",
+          "path": "/add_hot_address",
+          "apiList": ["/api/v1/add_hot_address"]
+        }
+      ]
+    },
+    {
+      "title": "资产管理",
+      "name": "assetIndex",
+      "children": [
+        // {
+        //   "title": "资产账户",
+        //   "name": "asset",
+        //   "path": "/asset",
+        //   "apiList": ["/api/v1/platform_account/assets", "/api/v1/platform_account/send_validate_code", "/api/v1/platform_account/bind"]
+        // },
+        {
+          "title": "资产列表",
+          "name": "assetPage",
+          "path": "/asset_page",
+          "apiList": ["/api/v1/assets", "/api/v1/delete_asset", "/api/v1/update_asset", "/api/v1/create_asset"]
+        },
+        {
+          "title": "资产流水",
+          "name": "assetFlowPage",
+          "path": "/asset_flow_page",
+          "apiList": ["/api/v1/asset_flow", "/api/v1/delete_asset_flow", "/api/v1/update_asset_flow", "/api/v1/create_asset_flow"]
+        },
+        {
+          "title": "资产统计",
+          "name": "assetReport",
+          "path": "/asset_report",
+          "apiList": ["/api/v1/asset_report"]
+        }
+        // {
+        //   "title": "资产校对",
+        //   "name": "assetCheck",
+        //   "path": "/asset_check",
+        //   "apiList": ["/api/v1/assets", "/api/v1/asset_check"]
+        // },
+        // {
+        //   "title": "资产校对结果",
+        //   "name": "assetCheckReport",
+        //   "path": "/asset_check_report",
+        //   "apiList": ["/api/v1/asset_check_report"]
+        // }
+      ]
+    },
+    {
+      "title": "订单管理",
+      "name": "order",
+      "children": [{
+          "title": "订单统计",
+          "name": "orderFlowReport",
+          "link": "/order_flow_report",
+          "apiList": ["/api/v1/order_flows"]
+        },
+        {
+          "title": "充币订单",
+          "name": "depositOrder",
+          "link": "/deposit_order",
+          "apiList": ["/api/v1/orders", "/api/v1/delete_orders", "/api/v1/update_order", "/api/v1/create_contract_deposit_order"]
+        },
+        {
+          "title": "提币订单",
+          "name": "withdrawalOrder",
+          "link": "/withdrawal_order",
+          "apiList": ["/api/v1/orders", "/api/v1/delete_orders", "/api/v1/update_order", "/api/v1/create_asset"]
+        },
+        {
+          "title": "归集订单",
+          "name": "collectOrder",
+          "link": "/collect_order",
+          "apiList": ["/api/v1/orders", "/api/v1/delete_orders", "/api/v1/update_orders"]
+        },
+        {
+          "title": "通知订单",
+          "name": "notifyOrder",
+          "link": "/notify_order",
+          "apiList": ["/api/v1/notify_order", "/api/v1/delete_notify_order", "/api/v1/update_notify_order", "/api/v1/create_notify_order"]
+        },
+        {
+          "title": "黑名单充值订单",
+          "name": "depositBlacklistOrder",
+          "link": "/deposit_blacklist_order",
+          "apiList": ["/api/v1/blacklist_orders", "/api/v1/delete_orders", "/api/v1/account_blacklist_order", "/api/v1/create_blacklist_deposit_order"]
+        }
+      ]
+    },
+    {
+      "title": "异常订单处理",
+      "name": "exception",
+      "children": [{
+          "title": "异常提币订单",
+          "name": "exceptionWithdrawalOrder",
+          "link": "/exception_withdrawal_order",
+          "apiList": ["/api/v1/exception_orders", "/api/v1/delete_orders", "/api/v1/resend_orders", "/api/v1/update_order", "/api/v1/create_asset"]
+        },
+        {
+          "title": "Redis操作",
+          "name": "redis",
+          "link": "/redis",
+          "apiList": ["/api/v1/redis"]
+        },
+        {
+          "title": "提现单处理",
+          "name": "handleWithdrawalOrder",
+          "link": "/handle_withdrawal_order",
+          "apiList": ["/api/v1/withdrawal_order_extra_info", "/api/v1/trans_token"]
+        }
+      ]
+    },
+    {
+      "title": "钱包管理",
+      "name": "wallet",
+      "children": [{
+          "title": "归集到运营钱包",
+          "name": "collectToHot",
+          "link": "/collect_to_hot",
+          "apiList": ["/api/v1/collect_to_hot", "/api/v1/collect_hot_to_hot"]
+        },
+        {
+          "title": "给矿工费",
+          "name": "giveFee",
+          "link": "/give_fee",
+          "apiList": ["/api/v1/give_fee"]
+        },
+        {
+          "title": "管理后台日志",
+          "name": "walletAdminLog",
+          "link": "/wallet_admin_log",
+          "apiList": ["/api/v1/getlogs", "/api/v1/stoplogs"]
+        }
+      ]
+    },
+    {
+      "title": "系统设置",
+      "name": "system",
+      "path": "/system",
+      "apiList": ["/api/v1/settings", "/api/v1/update_setting", "/api/v1/create_setting"]
+    },
+    {
+      "title": "权限设置",
+      "name": "authIndex",
+      "children": [{
+          "title": "用户管理",
+          "name": "userList",
+          "link": "/user_list",
+          "apiList": [""]
+        },
+        {
+          "title": "角色管理",
+          "name": "authList",
+          "link": "/auth_list",
+          "apiList": [""]
+        }
+      ]
+    }
+  ]
+}
+

@@ -1,7 +1,11 @@
 <template>
   <div :class="classes">
     <div :class="barConClasses">
-      <i :class="`${prefix}-bar`" v-once v-for="i in 8" :key="`trigger-${i}`"></i>
+      <i 
+        :class="`${prefix}-bar`" 
+        v-once 
+        v-for="i in 8" 
+        :key="`trigger-${i}`"/>
     </div>
   </div>
 </template>

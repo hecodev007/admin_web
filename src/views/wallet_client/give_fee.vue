@@ -18,7 +18,7 @@ Main.page-exchange
 </template>
 <script>
     export default {
-        name: "give_fee",
+        name: "GiveFee",
         data() {
             return {
                 nextType: '',

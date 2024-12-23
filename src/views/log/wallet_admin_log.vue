@@ -1,16 +1,24 @@
 <template>
-    <div>
-        　　　　<Card dis-hover>
-         　　　　　　<p slot="title" style="padding-bottom: 20px; padding-top: 5px;">
-                   　　监听wallet-admin日志
-         　　　　　　</p>
-                       <Button type="primary" @click="openlogs">开启日志</Button>&nbsp;&nbsp;
-                      <Button type="error" @click="stoplogs">关闭日志</Button><br><br>
-                       <div id="filelog-container" style="height: 750px; overflow-y: scroll; background: #333; color: #aaa; padding: 10px;">
-                       　　<div id="aa">{{pullFileLogger}}</div>
-                       </div>
-             　　</Card>
-             </div>
+  <div>
+    　　　　<Card dis-hover>
+      　　　　　　<p 
+        slot="title" 
+        style="padding-bottom: 20px; padding-top: 5px;">
+        　　监听wallet-admin日志
+        　　　　　　</p>
+      <Button 
+        type="primary" 
+        @click="openlogs">开启日志</Button>&nbsp;&nbsp;
+      <Button 
+        type="error" 
+        @click="stoplogs">关闭日志</Button><br><br>
+      <div 
+        id="filelog-container" 
+        style="height: 750px; overflow-y: scroll; background: #333; color: #aaa; padding: 10px;">
+        　　<div id="aa">{{ pullFileLogger }}</div>
+      </div>
+      　　</Card>
+  </div>
 </template>
 <style >
 </style>

@@ -1,5 +1,7 @@
 <template>
-  <div ref="dom" class="charts chart-pie"></div>
+  <div 
+    ref="dom" 
+    class="charts chart-pie"/>
 </template>
 
 <script>
@@ -10,9 +12,18 @@ echarts.registerTheme('tdTheme', tdTheme)
 export default {
   name: 'ChartPie',
   props: {
-    value: Array,
-    text: String,
-    subtext: String
+    value: {
+      type: Array,
+      default: () => ([]) // 默认值为一个空对象
+    },
+    text: {
+      type: String,
+      default: ''
+    },
+    subtext: {
+      type: String,
+      default: ''
+    }
   },
   data () {
     return {

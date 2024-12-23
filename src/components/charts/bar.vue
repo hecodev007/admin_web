@@ -1,5 +1,7 @@
 <template>
-  <div ref="dom" class="charts chart-bar"></div>
+  <div 
+    ref="dom" 
+    class="charts chart-bar"/>
 </template>
 
 <script>
@@ -10,9 +12,19 @@ echarts.registerTheme('tdTheme', tdTheme)
 export default {
   name: 'ChartBar',
   props: {
-    value: Object,
-    text: String,
-    subtext: String
+    props: {
+      value: {
+        type: Object,
+        default: () => ({}) // 默认值为一个空对象
+      },
+      text: {
+        type: String,
+        default: ''
+      },
+      subtext: {
+        type: String,
+        default: ''
+      }
   },
   data () {
     return {

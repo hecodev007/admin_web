@@ -1,16 +1,24 @@
 <template >
   <div>
     <Card dis-hover>
-      <p slot="title" style="padding-bottom: 20px; padding-top: 5px;">Run Redis CMD</p>
-      <Input v-model="createForm.cmd_string"/>&nbsp;&nbsp;
-      <Button type="primary" @click="sendRequest" style="width:100px;  margin-top: 20px;" :loading="loading" >run</Button><br><br>
-      <textarea id="filelog-container" style="height: 750px; width:100%; overflow-y: scroll; background: #333; color: #aaa; padding: 10px;">{{redisResult}}</textarea>
+      <p 
+        slot="title" 
+        style="padding-bottom: 20px; padding-top: 5px;">Run Redis CMD</p>
+      <Input v-model="createForm.cmd_string"></Input>>;
+      <Button 
+        type="primary" 
+        @click="sendRequest" 
+        style="width:100px;  margin-top: 20px;" 
+        :loading="loading" >run</Button><br><br>
+      <textarea 
+        id="filelog-container" 
+        style="height: 750px; width:100%; overflow-y: scroll; background: #333; color: #aaa; padding: 10px;">{{ redisResult }}</textarea>
     </Card>
   </div>
 </template>
 <script>
     export default {
-        name: "redis",
+        name: "Redis",
         data() {
             return {
 

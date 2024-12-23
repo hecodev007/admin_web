@@ -34,7 +34,7 @@ Main.page-exchange
 </template>
 <script>
     export default {
-        name: "collect_to_hot",
+        name: "CollectToHot",
         data() {
             return {
                 nextType: '',

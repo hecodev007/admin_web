@@ -1,22 +1,42 @@
 <template>
-  <div ref="outerWrapper" :class="wrapperClasses">
-    <div v-if="isHorizontal" :class="`${prefix}-horizontal`">
-      <div :style="{right: `${anotherOffset}%`}" :class="[`${prefix}-pane`, 'left-pane']"><slot name="left"/></div>
-      <div :class="`${prefix}-trigger-con`" :style="{left: `${offset}%`}" @mousedown="handleMousedown">
+  <div 
+    ref="outerWrapper" 
+    :class="wrapperClasses">
+    <div 
+      v-if="isHorizontal" 
+      :class="`${prefix}-horizontal`">
+      <div 
+        :style="{right: `${anotherOffset}%`}" 
+        :class="[`${prefix}-pane`, 'left-pane']"><slot name="left"/></div>
+      <div 
+        :class="`${prefix}-trigger-con`" 
+        :style="{left: `${offset}%`}" 
+        @mousedown="handleMousedown">
         <slot name="trigger">
           <trigger mode="vertical"/>
         </slot>
       </div>
-      <div :style="{left: `${offset}%`}" :class="[`${prefix}-pane`, 'right-pane']"><slot name="right"/></div>
+      <div 
+        :style="{left: `${offset}%`}" 
+        :class="[`${prefix}-pane`, 'right-pane']"><slot name="right"/></div>
     </div>
-    <div v-else :class="`${prefix}-vertical`">
-      <div :style="{bottom: `${anotherOffset}%`}" :class="[`${prefix}-pane`, 'top-pane']"><slot name="top"/></div>
-     <div :class="`${prefix}-trigger-con`" :style="{top: `${offset}%`}" @mousedown="handleMousedown">
+    <div 
+      v-else 
+      :class="`${prefix}-vertical`">
+      <div 
+        :style="{bottom: `${anotherOffset}%`}" 
+        :class="[`${prefix}-pane`, 'top-pane']"><slot name="top"/></div>
+      <div 
+        :class="`${prefix}-trigger-con`" 
+        :style="{top: `${offset}%`}" 
+        @mousedown="handleMousedown">
         <slot name="trigger">
           <trigger mode="horizontal"/>
         </slot>
       </div>
-      <div :style="{top: `${offset}%`}" :class="[`${prefix}-pane`, 'bottom-pane']"><slot name="bottom"/></div>
+      <div 
+        :style="{top: `${offset}%`}" 
+        :class="[`${prefix}-pane`, 'bottom-pane']"><slot name="bottom"/></div>
     </div>
   </div>
 </template>

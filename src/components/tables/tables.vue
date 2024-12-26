@@ -1,134 +1,134 @@
 <template>
   <div>
-    <div 
-      v-if="searchable && searchPlace === 'top'" 
-      class="search-con search-con-top">
+    <div
+        v-if="searchable && searchPlace === 'top'"
+        class="search-con search-con-top">
       <!-- {{searchOptions}} -->
       <!-- {{columns}} -->
-      <Select 
-        v-model="searchKey" 
-        class="search-col">
-        <Option 
-          v-for="item in columns" 
-          v-if="searchOptions.indexOf(item.key) > -1 " 
-          :value="item.key" 
-          :key="`search-col-${item.key}`">{{ item.title }}</Option>
+      <Select
+          v-model="searchKey"
+          class="search-col">
+        <Option
+            v-for="item in columns"
+            v-if="searchOptions.indexOf(item.key) > -1 "
+            :value="item.key"
+            :key="`search-col-${item.key}`">{{ item.title }}</Option>
       </Select>
-      <Input 
-        @on-change="handleClear" 
-        clearable 
-        :placeholder='$lang("关键词")' 
-        class="search-input" 
-        v-model="searchValue">
-      <Button 
-        @click="handleSearch" 
-        class="search-btn" 
-        type="primary"><Icon type="ios-search"/>&nbsp;&nbsp;{{ $lang("搜索") }}</Button>
+      <Input
+          @on-change="handleClear"
+          clearable
+          :placeholder='$lang("关键词")'
+          class="search-input"
+          v-model="searchValue" ></Input>
+      <Button
+          @click="handleSearch"
+          class="search-btn"
+          type="primary"><Icon type="ios-search"/>&nbsp;&nbsp;{{ $lang("搜索") }}</Button>
 
-      <Input 
-        v-if="customInputable === true" 
-        @on-change="handleCustomInput" 
-        clearable 
-        placeholder="" 
-        class="search-input" 
-        v-model="customInput">
-      <p 
-        v-if="customInputable === true" 
-        class="search-input">{{ customInputTip }}</p>
+      <Input
+          v-if="customInputable === true"
+          @on-change="handleCustomInput"
+          clearable
+          placeholder=""
+          class="search-input"
+          v-model="customInput"> </Input>
+      <p
+          v-if="customInputable === true"
+          class="search-input">{{ customInputTip }}</p>
 
-      <Button 
-        v-if="deleteable === true" 
-        style="float:right; margin: 4px" 
-        @click="modalDelete = true" 
-        class="search-btn" 
-        type="primary"><Icon type="ios-trash"/>&nbsp;&nbsp;{{ $lang("删除") }}</Button>
-      <Modal 
-        v-model="modalDelete"
-        title="Delete Tips"
-        @on-ok="handleDeleteSelected"
-        @on-cancel="modelDeleteCancel">
+      <Button
+          v-if="deleteable === true"
+          style="float:right; margin: 4px"
+          @click="modalDelete = true"
+          class="search-btn"
+          type="primary"><Icon type="ios-trash"/>&nbsp;&nbsp;{{ $lang("删除") }}</Button>
+      <Modal
+          v-model="modalDelete"
+          title="Delete Tips"
+          @on-ok="handleDeleteSelected"
+          @on-cancel="modelDeleteCancel">
         <p>{{ $lang("确定要删除选中行吗") }}</p>
       </Modal>
-      <Button 
-        v-if="addable === true" 
-        style="float:right; margin: 4px" 
-        size="large" 
-        type="primary" 
-        icon="md-add-circle" 
-        ghost 
-        @click="handleAddRow" 
-        class="search-btn">{{ $lang("新增") }}</Button>
+      <Button
+          v-if="addable === true"
+          style="float:right; margin: 4px"
+          size="large"
+          type="primary"
+          icon="md-add-circle"
+          ghost
+          @click="handleAddRow"
+          class="search-btn">{{ $lang("新增") }}</Button>
 
     </div>
     <Table
-      ref="tablesMain"
-      :data="insideTableData"
-      :columns="insideColumns"
-      :searchOptions="searchOptions"
-      :stripe="stripe"
-      :border="border"
-      :show-header="showHeader"
-      :width="width"
-      :height="height"
-      :loading="loading"
-      :addable="addable"
-      :deleteable="deleteable"
-      :customInputTip="customInputTip"
-      :customInputable="customInputable"
-      :searchOffline="searchOffline"
-      :disabled-hover="disabledHover"
-      :highlight-row="highlightRow"
-      :row-class-name="rowClassName"
-      :size="size"
-      :no-data-text="noDataText"
-      :no-filtered-data-text="noFilteredDataText"
-      @on-add-row="handleAddRow"
-      @on-search="handleSearch"
-      @on-delete-selected="handleDeleteSelected"
-      @on-current-change="onCurrentChange"
-      @on-select="onSelect"
-      @on-select-cancel="onSelectCancel"
-      @on-select-all="onSelectAll"
-      @on-selection-change="onSelectionChange"
-      @on-sort-change="onSortChange"
-      @on-filter-change="onFilterChange"
-      @on-row-click="onRowClick"
-      @on-row-dblclick="onRowDblclick"
-      @on-expand="onExpand"
+        ref="tablesMain"
+        :data="insideTableData"
+        :columns="insideColumns"
+        :searchOptions="searchOptions"
+        :stripe="stripe"
+        :border="border"
+        :show-header="showHeader"
+        :width="width"
+        :height="height"
+        :loading="loading"
+        :addable="addable"
+        :deleteable="deleteable"
+        :customInputTip="customInputTip"
+        :customInputable="customInputable"
+        :searchOffline="searchOffline"
+        :disabled-hover="disabledHover"
+        :highlight-row="highlightRow"
+        :row-class-name="rowClassName"
+        :size="size"
+        :no-data-text="noDataText"
+        :no-filtered-data-text="noFilteredDataText"
+        @on-add-row="handleAddRow"
+        @on-search="handleSearch"
+        @on-delete-selected="handleDeleteSelected"
+        @on-current-change="onCurrentChange"
+        @on-select="onSelect"
+        @on-select-cancel="onSelectCancel"
+        @on-select-all="onSelectAll"
+        @on-selection-change="onSelectionChange"
+        @on-sort-change="onSortChange"
+        @on-filter-change="onFilterChange"
+        @on-row-click="onRowClick"
+        @on-row-dblclick="onRowDblclick"
+        @on-expand="onExpand"
     >
-      <slot 
-        name="header" 
-        slot="header"/>
-      <slot 
-        name="footer" 
-        slot="footer"/>
-      <slot 
-        name="loading" 
-        slot="loading"/>
+      <slot
+          name="header"
+          slot="header"/>
+      <slot
+          name="footer"
+          slot="footer"/>
+      <slot
+          name="loading"
+          slot="loading"/>
     </Table>
-    <div 
-      v-if="searchable && searchPlace === 'bottom'" 
-      class="search-con search-con-top">
-      <Select 
-        v-model="searchKey" 
-        class="search-col">
-        <Option 
-          v-for="item in columns" 
-          v-if="searchOptions.indexOf(item.key) > -1 " 
-          :value="item.key" 
-          :key="`search-col-${item.key}`">{{ item.title }}</Option>
+    <div
+        v-if="searchable && searchPlace === 'bottom'"
+        class="search-con search-con-top">
+      <Select
+          v-model="searchKey"
+          class="search-col">
+        <Option
+            v-for="item in columns"
+            v-if="searchOptions.indexOf(item.key) > -1 "
+            :value="item.key"
+            :key="`search-col-${item.key}`">{{ item.title }}</Option>
       </Select>
-      <Input 
-        placeholder="输入关键字搜索" 
-        class="search-input" 
-        v-model="searchValue">
-      <Button 
-        class="search-btn" 
-        type="primary"><Icon type="search"/>&nbsp;&nbsp;搜索</Button>
+      <Input
+          placeholder="输入关键字搜索"
+          class="search-input"
+          v-model="searchValue"></Input>
+      <Button
+          class="search-btn"
+          type="primary"><Icon type="search"/>&nbsp;&nbsp;搜索</Button>
     </div>
-    <a 
-      id="hrefToExportTable" 
-      style="display: none;width: 0px;height: 0px;"/>
+    <a
+        id="hrefToExportTable"
+        style="display: none;width: 0px;height: 0px;"/>
   </div>
 </template>
 
@@ -336,8 +336,9 @@ export default {
       }
     },
     handleCustomInput () {
-        this.$emit('on-CustomInput', this.customInput)
+      this.$emit('on-CustomInput', this.customInput)
     },
+
     handleTableData () {
       this.insideTableData = this.value.map((item, index) => {
         let res = item

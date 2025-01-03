@@ -65,22 +65,14 @@ Main.page-exchange
                     },
                     {
                         key: 2,
-                        value: 'EOS'
+                        value: 'BEP20'
                     },
                     {
                         key: 3,
-                        value: 'NEO'
+                        value: 'polygon20'
                     },
                     {
                         key: 4,
-                        value: 'COBO'
-                    },
-                    {
-                        key: 5,
-                        value: 'BAAS'
-                    },
-                    {
-                        key: 6,
                         value: 'TRC20'
                     }
                 ],

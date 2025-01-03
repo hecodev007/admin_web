@@ -14,12 +14,85 @@
             :value="item.key"
             :key="`search-col-${item.key}`">{{ item.title }}</Option>
       </Select>
+      <!-- {{ searchKey }} -->
       <Input
+          v-if="searchKey !== 'token_id' && searchKey !== 'wallet_owner' && searchKey !== 'status' && searchKey !== 'reason' && searchKey !== 'token_type' && searchKey !== 'type' && searchKey !== 'owner'"
           @on-change="handleClear"
           clearable
           :placeholder='$lang("关键词")'
           class="search-input"
           v-model="searchValue" ></Input>
+      <Select
+          v-model="searchValue"
+          class="search-col"
+          v-if="searchKey === 'token_id'">
+        >
+        <Option
+            v-for="item in tokenIds"
+            :value="item"
+            :key="`search-col-${item}`">{{ item }}</Option>
+      </Select>
+      <Select
+          v-model="searchValue"
+          class="search-col"
+          v-if="searchKey === 'wallet_owner'">
+        >
+        <Option
+            v-for="item in walletTypes"
+            :value="item"
+            :key="`search-col-${item}`">{{ item }}</Option>
+      </Select>
+      <Select
+          v-model="searchValue"
+          class="search-col"
+          v-if="searchKey === 'status'">
+        >
+        <Option
+            v-for="item in status"
+            :value="item"
+            :key="`search-col-${item}`">{{ item }}</Option>
+      </Select>
+      <Select
+          v-model="searchValue"
+          class="search-col"
+          v-if="searchKey === 'reason'">
+        >
+        <Option
+            v-for="item in reason"
+            :value="item"
+            :key="`search-col-${item}`">{{ item }}</Option>
+      </Select>
+      <Select
+          v-model="searchValue"
+          class="search-col"
+          v-if="searchKey === 'token_type'">
+        >
+        <Option
+            v-for="item in tokenTypes"
+            :value="item"
+            :key="`search-col-${item}`">{{ item }}</Option>
+      </Select>
+      <Select
+          v-model="searchValue"
+          class="search-col"
+          v-if="searchKey === 'type'">
+        >
+        <Option
+            v-for="item in types"
+            :value="item"
+            :key="`search-col-${item}`">{{ item }}</Option>
+      </Select>
+      <Select
+          v-model="searchValue"
+          class="search-col"
+          v-if="searchKey === 'owner'">
+        >
+        <Option
+            v-for="item in owners"
+            :value="item"
+            :key="`search-col-${item}`">{{ item }}</Option>
+      </Select>
+
       <Button
           @click="handleSearch"
           class="search-btn"
@@ -136,24 +209,25 @@
 import TablesEdit from './edit.vue'
 import handleBtns from './handle-btns'
 import './index.less'
+
 export default {
   name: 'Tables',
   props: {
     value: {
       type: Array,
-      default () {
+      default() {
         return []
       }
     },
     columns: {
       type: Array,
-      default () {
+      default() {
         return []
       }
     },
     searchOptions: {
       type: Array,
-      default () {
+      default() {
         return ["token_id"]
       }
     },
@@ -202,7 +276,7 @@ export default {
     },
     rowClassName: {
       type: Function,
-      default () {
+      default() {
         return ''
       }
     },
@@ -250,7 +324,7 @@ export default {
    * @on-cancel-edit 返回值 {Object} 同上
    * @on-save-edit 返回值 {Object} ：除上面三个参数外，还有一个value: 修改后的数据
    */
-  data () {
+  data() {
     return {
       insideColumns: [],
       // searchOptions: [],
@@ -266,10 +340,17 @@ export default {
       // customInputable :false,
       // customInputTip: "",
       // customInput:"",
+      tokenIds: [],
+      status: [],
+      reason: [],
+      tokenTypes: [],
+      types: [],
+      owners: [],
+      walletTypes: ['个人', '热钱包', '冷钱包'],
     }
   },
   methods: {
-    suportEdit (item, index) {
+    suportEdit(item, index) {
       item.render = (h, params) => {
         return h(TablesEdit, {
           props: {
@@ -293,7 +374,12 @@ export default {
             'on-save-edit': (params) => {
               this.value[params.row.initRowIndex][params.column.key] = this.edittingText
               this.$emit('input', this.value)
-              this.$emit('on-save-edit', Object.assign(params, { id: this.insideTableData[params.index].id, key:params.column.key, value: this.edittingText,data:params.row }))
+              this.$emit('on-save-edit', Object.assign(params, {
+                id: this.insideTableData[params.index].id,
+                key: params.column.key,
+                value: this.edittingText,
+                data: params.row
+              }))
               this.edittingCellId = ''
             }
           }
@@ -301,7 +387,7 @@ export default {
       }
       return item
     },
-    surportHandle (item) {
+    surportHandle(item) {
       let options = item.options || []
       let insideBtns = []
       options.forEach(item => {
@@ -314,7 +400,7 @@ export default {
       }
       return item
     },
-    handleColumns (columns) {
+    handleColumns(columns) {
       this.insideColumns = columns.map((item, index) => {
         let res = item
         if (res.editable) res = this.suportEdit(res, index)
@@ -322,88 +408,121 @@ export default {
         return res
       })
     },
-    setDefaultSearchKey () {
+    setDefaultSearchKey() {
       //this.searchKey = (this.columns[0].key !== 'handle' && this.columns[0].key !== '') ? this.columns[0].key : (this.columns.length > 1 ? this.columns[1].key : '')
     },
-    handleClear (e) {
+    handleClear(e) {
       if (e.target.value === '') this.insideTableData = this.value
     },
-    handleSearch () {
-      if(this.searchOffline === true) {
+    handleSearch() {
+      if (this.searchOffline === true) {
         this.insideTableData = this.value.filter(item => item[this.searchKey].indexOf(this.searchValue) > -1)
       } else {
         this.$emit('on-search', this.searchKey, this.searchValue)
       }
     },
-    handleCustomInput () {
+    handleCustomInput() {
       this.$emit('on-CustomInput', this.customInput)
     },
 
-    handleTableData () {
+    handleTableData() {
+      let tokenIds = {}
+      let status = {}
+      let reason = {}
+      let tokenTypes = {}
+      let types = {}
+      let owners = {}
       this.insideTableData = this.value.map((item, index) => {
         let res = item
         res.initRowIndex = index
+        if (item.token_id) {
+          tokenIds[item.token_id] = item.token_id
+        }
+        if (item.status) {
+          status[item.status] = item.status
+        }
+        if (item.reason) {
+          reason[item.reason] = item.reason
+        }
+        if (item.token_type) {
+          tokenTypes[item.token_type] = item.token_type
+        }
+        if (item.type) {
+          types[item.type] = item.type
+        }
+        if (item.owner) {
+          owners[item.owner] = item.owner
+        }
         return res
       })
+      this.tokenIds = this.tokenIds.length === 0 ? Object.keys(tokenIds) : this.tokenIds
+      this.status = this.status.length === 0 ? Object.keys(status) : this.status
+      this.reason = this.reason.length === 0 ? Object.keys(reason) : this.reason
+      this.tokenTypes = this.tokenTypes.length === 0 ? Object.keys(tokenTypes) : this.tokenTypes
+      this.types = this.types.length === 0 ? Object.keys(types) : this.types
+      this.owners = this.owners.length === 0 ? Object.keys(owners) : this.owners
     },
-    exportCsv (params) {
+    exportCsv(params) {
       this.$refs.tablesMain.exportCsv(params)
     },
-    clearCurrentRow () {
+    clearCurrentRow() {
       this.$refs.talbesMain.clearCurrentRow()
     },
-    handleAddRow () {
+    handleAddRow() {
       this.$emit('on-add-row')
     },
-    handleDeleteSelected () {
+    handleDeleteSelected() {
       this.$emit('on-delete-selected')
     },
-    modelDeleteCancel () {
+    modelDeleteCancel() {
       //this.$Message.info('Clicked cancel');
     },
-    onCurrentChange (currentRow, oldCurrentRow) {
+    onCurrentChange(currentRow, oldCurrentRow) {
       this.$emit('on-current-change', currentRow, oldCurrentRow)
     },
-    onSelect (selection, row) {
+    onSelect(selection, row) {
       this.$emit('on-select', selection, row)
     },
-    onSelectCancel (selection, row) {
+    onSelectCancel(selection, row) {
       this.$emit('on-select-cancel', selection, row)
     },
-    onSelectAll (selection) {
+    onSelectAll(selection) {
       this.$emit('on-select-all', selection)
     },
-    onSelectionChange (selection) {
+    onSelectionChange(selection) {
       this.$emit('on-selection-change', selection)
     },
-    onSortChange (column, key, order) {
+    onSortChange(column, key, order) {
       this.$emit('on-sort-change', column, key, order)
     },
-    onFilterChange (row) {
+    onFilterChange(row) {
       this.$emit('on-filter-change', row)
     },
-    onRowClick (row, index) {
+    onRowClick(row, index) {
       this.$emit('on-row-click', row, index)
     },
-    onRowDblclick (row, index) {
+    onRowDblclick(row, index) {
       this.$emit('on-row-dblclick', row, index)
     },
-    onExpand (row, status) {
+    onExpand(row, status) {
       this.$emit('on-expand', row, status)
     },
 
   },
   watch: {
-    columns (columns) {
+    columns(columns) {
       this.handleColumns(columns)
       this.setDefaultSearchKey()
     },
-    value (val) {
+    value(val) {
       this.handleTableData()
       //if (this.searchable && this.searchKey != '' && this.searchValue != '') this.handleSearch()
+    },
+    searchKey() {
+      this.searchValue = ''
     }
   },
-  mounted () {
+  mounted() {
     this.handleColumns(this.columns)
     this.setDefaultSearchKey()
     this.handleTableData()

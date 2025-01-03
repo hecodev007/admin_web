@@ -475,7 +475,7 @@ export default {
   Key: "key",
   Value: "value",
   broker订单ID: "BrokerId",
-  归集哪个地址的token: "FromAddress",
+  从哪里归集: "FromAddress",
   归集到哪里: "ToAddress",
   最小归集值: "MinCollect",
   最大归集值: "MaxCollect",
@@ -556,5 +556,6 @@ export default {
   提现单处理: "Handle Withdrawal Orders",
   订单信息: "Order info",
   适用资产信息: "Available org asset",
-  所有资产信息: "All org asset"
+  所有资产信息: "All org asset",
+  链ID: "ChainID",
 };

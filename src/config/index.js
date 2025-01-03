@@ -13,8 +13,8 @@ export default {
    * @description api请求基础路径
    */
   baseUrl: {
-    dev: "http://172.20.4.100:40706/",
-    // dev: "http://127.0.0.1:40706/",
+    dev: "http://172.20.4.100:40707/",
+    // dev: "http://127.0.0.1:40707/",
     pro: "https://wallet-adm.kooex.io/"
   },
   /**

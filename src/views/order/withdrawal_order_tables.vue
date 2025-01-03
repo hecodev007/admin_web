@@ -79,6 +79,28 @@ Main.page-exchange
 </template>
 
 <script>
+const STATUS = {
+  0: "已创建",
+  1: "已过风控",
+  11: "没过风控",
+  2: "已发送给 ChainNode",
+  12: "ChainNode返回失败",
+  4: "已上链",
+  14: "上链失败",
+  8: "等待baas拉取处理该订单",
+  16: "重试订单",
+  18: "baas 处理订单失败",
+
+  90: "can refund to user",
+  100: "已完成",
+  101: "手动取消",
+  102: "OrderInvalid",
+  103: "链上执行失败",
+
+  104: "退还给用户",
+  105: "扣了手续费",
+
+}
     import Tables from '@/components/tables'
     //import { getTableData } from '@/api/api'
     export default {
@@ -202,6 +224,19 @@ Main.page-exchange
             }
         },
         methods: {
+          reset() {
+            this.requestDataForm={
+              current: 1,
+                  page_size: 20,
+                  token_id: "",
+                  type:2,
+                  from:"",
+                  to:"",
+                  tx_hash:"",
+                  broker_order_id:"",
+                  status: -1,
+            }
+          },
             loadData() {
                 this.loadingTable = true;
 
@@ -251,6 +286,7 @@ Main.page-exchange
                 this.deleteSelected(ids);
             },
             handleSearch(searchKey, searchValue) {
+            this.reset();
                 //this.loadingTable = true;
                 if( searchKey === 'token_id'){
                     this.requestDataForm.token_id = searchValue;
@@ -268,7 +304,10 @@ Main.page-exchange
                     this.requestDataForm.broker_order_id = searchValue;
                 }
                 if( searchKey === 'status'){
-                    this.requestDataForm.status = Number(searchValue);
+                  const statusKey = Object.keys(STATUS).find(key => STATUS[key] === searchValue);
+                  if (statusKey !== undefined) {
+                    this.requestDataForm.status = Number(statusKey);
+                  }
                 }
                 //this.$Message.info("from " + this.requestDataForm.from + "  to" + this.requestDataForm.to);
 

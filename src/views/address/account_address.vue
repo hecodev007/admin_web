@@ -51,7 +51,7 @@ Main.page-exchange
 </template>
 
 <script>
-    const TYPE = {
+    const TOKEN_TYPE = {
         1: 'Utxo',
         2: 'ETH',
         3: 'LTC',
@@ -191,7 +191,7 @@ Main.page-exchange
                         this.tableData = result.data ? result.data : [];
                         this.total = result.total;
                         this.tableData.forEach(function (c) {
-                            c['token_type'] = TYPE[c['token_type']];
+                            c['token_type'] = TOKEN_TYPE[c['token_type']];
                         })
                     }
                 });
@@ -233,7 +233,7 @@ Main.page-exchange
                 //this.loadingTable = true;
                 this.reset();
                 if( searchKey === 'token_type'){
-                    const statusKey = Object.keys(TYPE).find(key => TYPE[key] === searchValue);
+                    const statusKey = Object.keys(TOKEN_TYPE).find(key => TOKEN_TYPE[key] === searchValue);
                     if (statusKey !== undefined) {
                     this.requestDataForm.token_type = parseInt(statusKey);
                     }
@@ -255,7 +255,7 @@ Main.page-exchange
                         this.tableData = result.data ? result.data : [];
                         this.total = result.total;
                         this.tableData.forEach(function (c) {
-                            c['token_type'] = TYPE[c['token_type']];
+                            c['token_type'] = TOKEN_TYPE[c['token_type']];
                         })
                     }
                 });

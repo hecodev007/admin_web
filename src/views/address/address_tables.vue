@@ -71,6 +71,19 @@ Main.page-exchange
 </template>
 
 <script>
+    const TOKEN_TYPE = {
+        1: 'Utxo',
+        2: 'ETH',
+        3: 'LTC',
+        4: 'EOS',
+        5: 'IPC',
+        6: 'TRON'
+    }
+    const ADDRESS_TYPE = {
+        1: '单签名地址',
+        2: '多签名地址',
+        3: '用来生成多签名地址的单签名地址',
+    }
     import Tables from '@/components/tables'
     //import { getTableData } from '@/api/api'
     export default {
@@ -186,6 +199,16 @@ Main.page-exchange
             }
         },
         methods: {
+            reset() {
+                this.requestDataForm = {
+                    current: 1,
+                    page_size: 20,
+                    token_type: 0,
+                    type: 0,
+                    address: "",
+                    status: -1,
+                }
+            },
             loadData() {
                 this.loadingTable = true;
                 this.$axios.get("/api/v1/addresses", {params: this.requestDataForm}).then(result => {
@@ -197,6 +220,10 @@ Main.page-exchange
                     if (result.code === 10000) {
                         this.tableData = result.data ? result.data : [];
                         this.total = result.total;
+                        this.tableData.forEach(function (c) {
+                            c['token_type'] = TOKEN_TYPE[c['token_type']];
+                            c['type'] = ADDRESS_TYPE[c['type']];
+                        })
                     }
                 });
             },
@@ -235,14 +262,21 @@ Main.page-exchange
             },
             handleSearch(searchKey, searchValue) {
                 //this.loadingTable = true;
+                this.reset();
                 if( searchKey === 'token_type'){
-                    this.requestDataForm.token_type = searchValue;
+                    const statusKey = Object.keys(TOKEN_TYPE).find(key => TOKEN_TYPE[key] === searchValue);
+                    if (statusKey !== undefined) {
+                    this.requestDataForm.token_type = parseInt(statusKey);
+                    }
                 }
                 if( searchKey === 'address'){
                     this.requestDataForm.address = searchValue;
                 }
                 if( searchKey === 'type'){
-                    this.requestDataForm.type = Number(searchValue);
+                    const statusKey = Object.keys(ADDRESS_TYPE).find(key => ADDRESS_TYPE[key] === searchValue);
+                    if (statusKey !== undefined) {
+                    this.requestDataForm.type = parseInt(statusKey);
+                    }
                 }
                 if( searchKey === 'status'){
                     this.requestDataForm.status = Number(searchValue);
@@ -257,6 +291,10 @@ Main.page-exchange
                     if (result.code === 10000) {
                         this.tableData = result.data ? result.data : [];
                         this.total = result.total;
+                        this.tableData.forEach(function (c) {
+                            c['token_type'] = TOKEN_TYPE[c['token_type']];
+                            c['type'] = ADDRESS_TYPE[c['type']];
+                        })
                     }
                 });
             },

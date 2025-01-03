@@ -2,8 +2,10 @@
   Main.page-exchange
     Row.search(:grtter="15")
       Col(span="16")
-        Input(search :placeholder="$lang('请输入')+$lang('币种ID')" v-model="searchKeyword", :enter-button="$lang('搜索')" @on-search="loadData")
-      Col(span="4") &nbsp;
+          Select(v-model="searchKeyword", :placeholder="$lang('请选择')+$lang('币种ID')", :clearable="true")
+              Option(v-for="item in tokenIds" :key="item" :value="item") {{item}}
+      Col(span="4")
+          Button(type="primary" @click="loadData") {{$lang("搜索")}}
       Col(span="4" style="text-align:right")
         Button(size="large" type="primary" ghost @click="create" icon="md-add-circle") {{$lang("新增币种")}}
     Table.user-table(:columns="columns", :data="listData", :loading="loadingTable")
@@ -325,7 +327,8 @@ export default {
             ]);
           }
         }
-      ]
+      ],
+      tokenIds: []
     };
   },
   created() {
@@ -341,6 +344,13 @@ export default {
         if (result.code === 10000) {
           this.listData = result.data ? result.data : [];
           this.total = result.total;
+          let tokenIds = {}
+          this.listData.forEach(el => {
+            tokenIds[el.token_id] = el.token_id
+          });
+          if (this.tokenIds.length === 0){
+            this.tokenIds = Object.keys(tokenIds)
+          }
         }
       });
       // this.$axios.get("/api/v1/token_types", null).then(result => {

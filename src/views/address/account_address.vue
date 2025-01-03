@@ -51,6 +51,14 @@ Main.page-exchange
 </template>
 
 <script>
+    const TYPE = {
+        1: 'Utxo',
+        2: 'ETH',
+        3: 'LTC',
+        4: 'EOS',
+        5: 'IPC',
+        6: 'TRON'
+    }
     import Tables from '@/components/tables'
     //import { getTableData } from '@/api/api'
     export default {
@@ -162,6 +170,15 @@ Main.page-exchange
             }
         },
         methods: {
+            reset() {
+                this.requestDataForm = {
+                    current: 1,
+                    page_size: 20,
+                    token_type: 0,
+                    account_id: "",
+                    address: "",
+                }
+            },
             loadData() {
                 this.loadingTable = true;
                 this.$axios.get("/api/v1/account_address", {params: this.requestDataForm}).then(result => {
@@ -173,6 +190,9 @@ Main.page-exchange
                     if (result.code === 10000) {
                         this.tableData = result.data ? result.data : [];
                         this.total = result.total;
+                        this.tableData.forEach(function (c) {
+                            c['token_type'] = TYPE[c['token_type']];
+                        })
                     }
                 });
             },
@@ -211,8 +231,12 @@ Main.page-exchange
             },
             handleSearch(searchKey, searchValue) {
                 //this.loadingTable = true;
+                this.reset();
                 if( searchKey === 'token_type'){
-                    this.requestDataForm.token_type = searchValue;
+                    const statusKey = Object.keys(TYPE).find(key => TYPE[key] === searchValue);
+                    if (statusKey !== undefined) {
+                    this.requestDataForm.token_type = parseInt(statusKey);
+                    }
                 }
                 if( searchKey === 'address'){
                     this.requestDataForm.address = searchValue;
@@ -230,6 +254,9 @@ Main.page-exchange
                     if (result.code === 10000) {
                         this.tableData = result.data ? result.data : [];
                         this.total = result.total;
+                        this.tableData.forEach(function (c) {
+                            c['token_type'] = TYPE[c['token_type']];
+                        })
                     }
                 });
             },

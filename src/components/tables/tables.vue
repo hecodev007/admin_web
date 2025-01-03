@@ -1,207 +1,207 @@
 <template>
   <div>
     <div
-        v-if="searchable && searchPlace === 'top'"
-        class="search-con search-con-top">
+      v-if="searchable && searchPlace === 'top'"
+      class="search-con search-con-top">
       <!-- {{searchOptions}} -->
       <!-- {{columns}} -->
       <Select
-          v-model="searchKey"
-          class="search-col">
+        v-model="searchKey"
+        class="search-col">
         <Option
-            v-for="item in columns"
-            v-if="searchOptions.indexOf(item.key) > -1 "
-            :value="item.key"
-            :key="`search-col-${item.key}`">{{ item.title }}</Option>
+          v-for="item in columns"
+          v-if="searchOptions.indexOf(item.key) > -1 "
+          :value="item.key"
+          :key="`search-col-${item.key}`">{{ item.title }}</Option>
       </Select>
       <!-- {{ searchKey }} -->
       <Input
-          v-if="searchKey !== 'token_id' && searchKey !== 'wallet_owner' && searchKey !== 'status' && searchKey !== 'reason' && searchKey !== 'token_type' && searchKey !== 'type' && searchKey !== 'owner'"
-          @on-change="handleClear"
-          clearable
-          :placeholder='$lang("关键词")'
-          class="search-input"
-          v-model="searchValue" ></Input>
+        v-if="searchKey !== 'token_id' && searchKey !== 'wallet_owner' && searchKey !== 'status' && searchKey !== 'reason' && searchKey !== 'token_type' && searchKey !== 'type' && searchKey !== 'owner'"
+        @on-change="handleClear"
+        clearable
+        :placeholder='$lang("关键词")'
+        class="search-input"
+        v-model="searchValue" ></Input>
       <Select
-          v-model="searchValue"
-          class="search-col"
-          v-if="searchKey === 'token_id'">
+        v-model="searchValue"
+        class="search-col"
+        v-if="searchKey === 'token_id'">
         >
         <Option
-            v-for="item in tokenIds"
-            :value="item"
-            :key="`search-col-${item}`">{{ item }}</Option>
+          v-for="item in tokenIds.sort((a, b) => a.localeCompare(b))"
+          :value="item"
+          :key="`search-col-${item}`">{{ item }}</Option>
       </Select>
       <Select
-          v-model="searchValue"
-          class="search-col"
-          v-if="searchKey === 'wallet_owner'">
+        v-model="searchValue"
+        class="search-col"
+        v-if="searchKey === 'wallet_owner'">
         >
         <Option
-            v-for="item in walletTypes"
-            :value="item"
-            :key="`search-col-${item}`">{{ item }}</Option>
+          v-for="item in walletTypes"
+          :value="item"
+          :key="`search-col-${item}`">{{ item }}</Option>
       </Select>
       <Select
-          v-model="searchValue"
-          class="search-col"
-          v-if="searchKey === 'status'">
+        v-model="searchValue"
+        class="search-col"
+        v-if="searchKey === 'status'">
         >
         <Option
-            v-for="item in status"
-            :value="item"
-            :key="`search-col-${item}`">{{ item }}</Option>
+          v-for="item in status"
+          :value="item"
+          :key="`search-col-${item}`">{{ item }}</Option>
       </Select>
       <Select
-          v-model="searchValue"
-          class="search-col"
-          v-if="searchKey === 'reason'">
+        v-model="searchValue"
+        class="search-col"
+        v-if="searchKey === 'reason'">
         >
         <Option
-            v-for="item in reason"
-            :value="item"
-            :key="`search-col-${item}`">{{ item }}</Option>
+          v-for="item in reason"
+          :value="item"
+          :key="`search-col-${item}`">{{ item }}</Option>
       </Select>
       <Select
-          v-model="searchValue"
-          class="search-col"
-          v-if="searchKey === 'token_type'">
+        v-model="searchValue"
+        class="search-col"
+        v-if="searchKey === 'token_type'">
         >
         <Option
-            v-for="item in tokenTypes"
-            :value="item"
-            :key="`search-col-${item}`">{{ item }}</Option>
+          v-for="item in tokenTypes"
+          :value="item"
+          :key="`search-col-${item}`">{{ item }}</Option>
       </Select>
       <Select
-          v-model="searchValue"
-          class="search-col"
-          v-if="searchKey === 'type'">
+        v-model="searchValue"
+        class="search-col"
+        v-if="searchKey === 'type'">
         >
         <Option
-            v-for="item in types"
-            :value="item"
-            :key="`search-col-${item}`">{{ item }}</Option>
+          v-for="item in types"
+          :value="item"
+          :key="`search-col-${item}`">{{ item }}</Option>
       </Select>
       <Select
-          v-model="searchValue"
-          class="search-col"
-          v-if="searchKey === 'owner'">
+        v-model="searchValue"
+        class="search-col"
+        v-if="searchKey === 'owner'">
         >
         <Option
-            v-for="item in owners"
-            :value="item"
-            :key="`search-col-${item}`">{{ item }}</Option>
+          v-for="item in owners"
+          :value="item"
+          :key="`search-col-${item}`">{{ item }}</Option>
       </Select>
 
       <Button
-          @click="handleSearch"
-          class="search-btn"
-          type="primary"><Icon type="ios-search"/>&nbsp;&nbsp;{{ $lang("搜索") }}</Button>
+        @click="handleSearch"
+        class="search-btn"
+        type="primary"><Icon type="ios-search"/>&nbsp;&nbsp;{{ $lang("搜索") }}</Button>
 
       <Input
-          v-if="customInputable === true"
-          @on-change="handleCustomInput"
-          clearable
-          placeholder=""
-          class="search-input"
-          v-model="customInput"> </Input>
+        v-if="customInputable === true"
+        @on-change="handleCustomInput"
+        clearable
+        placeholder=""
+        class="search-input"
+        v-model="customInput"> </Input>
       <p
-          v-if="customInputable === true"
-          class="search-input">{{ customInputTip }}</p>
+        v-if="customInputable === true"
+        class="search-input">{{ customInputTip }}</p>
 
       <Button
-          v-if="deleteable === true"
-          style="float:right; margin: 4px"
-          @click="modalDelete = true"
-          class="search-btn"
-          type="primary"><Icon type="ios-trash"/>&nbsp;&nbsp;{{ $lang("删除") }}</Button>
+        v-if="deleteable === true"
+        style="float:right; margin: 4px"
+        @click="modalDelete = true"
+        class="search-btn"
+        type="primary"><Icon type="ios-trash"/>&nbsp;&nbsp;{{ $lang("删除") }}</Button>
       <Modal
-          v-model="modalDelete"
-          title="Delete Tips"
-          @on-ok="handleDeleteSelected"
-          @on-cancel="modelDeleteCancel">
+        v-model="modalDelete"
+        title="Delete Tips"
+        @on-ok="handleDeleteSelected"
+        @on-cancel="modelDeleteCancel">
         <p>{{ $lang("确定要删除选中行吗") }}</p>
       </Modal>
       <Button
-          v-if="addable === true"
-          style="float:right; margin: 4px"
-          size="large"
-          type="primary"
-          icon="md-add-circle"
-          ghost
-          @click="handleAddRow"
-          class="search-btn">{{ $lang("新增") }}</Button>
+        v-if="addable === true"
+        style="float:right; margin: 4px"
+        size="large"
+        type="primary"
+        icon="md-add-circle"
+        ghost
+        @click="handleAddRow"
+        class="search-btn">{{ $lang("新增") }}</Button>
 
     </div>
     <Table
-        ref="tablesMain"
-        :data="insideTableData"
-        :columns="insideColumns"
-        :searchOptions="searchOptions"
-        :stripe="stripe"
-        :border="border"
-        :show-header="showHeader"
-        :width="width"
-        :height="height"
-        :loading="loading"
-        :addable="addable"
-        :deleteable="deleteable"
-        :customInputTip="customInputTip"
-        :customInputable="customInputable"
-        :searchOffline="searchOffline"
-        :disabled-hover="disabledHover"
-        :highlight-row="highlightRow"
-        :row-class-name="rowClassName"
-        :size="size"
-        :no-data-text="noDataText"
-        :no-filtered-data-text="noFilteredDataText"
-        @on-add-row="handleAddRow"
-        @on-search="handleSearch"
-        @on-delete-selected="handleDeleteSelected"
-        @on-current-change="onCurrentChange"
-        @on-select="onSelect"
-        @on-select-cancel="onSelectCancel"
-        @on-select-all="onSelectAll"
-        @on-selection-change="onSelectionChange"
-        @on-sort-change="onSortChange"
-        @on-filter-change="onFilterChange"
-        @on-row-click="onRowClick"
-        @on-row-dblclick="onRowDblclick"
-        @on-expand="onExpand"
+      ref="tablesMain"
+      :data="insideTableData"
+      :columns="insideColumns"
+      :searchOptions="searchOptions"
+      :stripe="stripe"
+      :border="border"
+      :show-header="showHeader"
+      :width="width"
+      :height="height"
+      :loading="loading"
+      :addable="addable"
+      :deleteable="deleteable"
+      :customInputTip="customInputTip"
+      :customInputable="customInputable"
+      :searchOffline="searchOffline"
+      :disabled-hover="disabledHover"
+      :highlight-row="highlightRow"
+      :row-class-name="rowClassName"
+      :size="size"
+      :no-data-text="noDataText"
+      :no-filtered-data-text="noFilteredDataText"
+      @on-add-row="handleAddRow"
+      @on-search="handleSearch"
+      @on-delete-selected="handleDeleteSelected"
+      @on-current-change="onCurrentChange"
+      @on-select="onSelect"
+      @on-select-cancel="onSelectCancel"
+      @on-select-all="onSelectAll"
+      @on-selection-change="onSelectionChange"
+      @on-sort-change="onSortChange"
+      @on-filter-change="onFilterChange"
+      @on-row-click="onRowClick"
+      @on-row-dblclick="onRowDblclick"
+      @on-expand="onExpand"
     >
       <slot
-          name="header"
-          slot="header"/>
+        name="header"
+        slot="header"/>
       <slot
-          name="footer"
-          slot="footer"/>
+        name="footer"
+        slot="footer"/>
       <slot
-          name="loading"
-          slot="loading"/>
+        name="loading"
+        slot="loading"/>
     </Table>
     <div
-        v-if="searchable && searchPlace === 'bottom'"
-        class="search-con search-con-top">
+      v-if="searchable && searchPlace === 'bottom'"
+      class="search-con search-con-top">
       <Select
-          v-model="searchKey"
-          class="search-col">
+        v-model="searchKey"
+        class="search-col">
         <Option
-            v-for="item in columns"
-            v-if="searchOptions.indexOf(item.key) > -1 "
-            :value="item.key"
-            :key="`search-col-${item.key}`">{{ item.title }}</Option>
+          v-for="item in columns"
+          v-if="searchOptions.indexOf(item.key) > -1 "
+          :value="item.key"
+          :key="`search-col-${item.key}`">{{ item.title }}</Option>
       </Select>
       <Input
-          placeholder="输入关键字搜索"
-          class="search-input"
-          v-model="searchValue"></Input>
+        placeholder="输入关键字搜索"
+        class="search-input"
+        v-model="searchValue"></Input>
       <Button
-          class="search-btn"
-          type="primary"><Icon type="search"/>&nbsp;&nbsp;搜索</Button>
+        class="search-btn"
+        type="primary"><Icon type="search"/>&nbsp;&nbsp;搜索</Button>
     </div>
     <a
-        id="hrefToExportTable"
-        style="display: none;width: 0px;height: 0px;"/>
+      id="hrefToExportTable"
+      style="display: none;width: 0px;height: 0px;"/>
   </div>
 </template>
 

@@ -1,5 +1,8 @@
 <template lang="pug">
 Main.page-exchange
+    Row
+        DatePicker(v-model="requestDataForm.create_time", type="date", placeholder="开始时间", style={margin: '10px 0'})
+        Button(style={margin: '10px 0'} type="primary" @click="loadData") 搜索
     tables(ref="tables", :addable="addable", :deleteable="deleteable", :loading="loadingTable", :search-place="top",v-model="tableData", :columns="columns",
       :searchOptions="searchOptions", @on-search="handleSearch" )
     Row
@@ -25,7 +28,8 @@ Main.page-exchange
                 deleteable:false,
                 total: 0,
                 requestDataForm: {
-                    token_id: "",
+                    // token_id: "",
+                    create_time: "",
                 },
                 columns: [
                     {title: this.$lang('币种ID'), key: 'token_id'},

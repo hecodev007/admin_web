@@ -48,7 +48,21 @@ Main.page-exchange
                         this.loading = true;
                     }, 200);
                     if (result.code === 10000) {
-                        this.tableData = result.data ? result.data : [];
+                        this.tableData = result.data ? result.data.sort((a, b) => {
+                            if (a.owner < b.owner) {
+                                return 1;
+                            }
+                            if (a.owner > b.owner) {
+                                return -1;
+                            }
+                            if (a.token_id < b.token_id) {
+                                return -1;
+                            }
+                            if (a.token_id > b.token_id) {
+                                return 1;
+                            }
+                            return 0;
+                        }) : [];
                         this.total = result.total;
                         this.tableData.forEach(function (c) {
                             if(c['owner'] == 1){
@@ -81,7 +95,21 @@ Main.page-exchange
                         this.loading = true;
                     }, 200);
                     if (result.code === 10000) {
-                        this.tableData = result.data ? result.data : [];
+                        this.tableData = result.data ? result.data.sort((a, b) => {
+                            if (a.owner < b.owner) {
+                                return 1;
+                            }
+                            if (a.owner > b.owner) {
+                                return -1;
+                            }
+                            if (a.token_id < b.token_id) {
+                                return -1;
+                            }
+                            if (a.token_id > b.token_id) {
+                                return 1;
+                            }
+                            return 0;
+                        }) : [];
                         this.total = result.total;
                         this.tableData.forEach(function (c) {
                             if(c['owner'] == 1){

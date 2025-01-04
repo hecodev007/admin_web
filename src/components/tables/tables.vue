@@ -28,7 +28,7 @@
         v-if="searchKey === 'token_id'">
         >
         <Option
-          v-for="item in tokenIds.sort((a, b) => a.localeCompare(b))"
+          v-for="item in tokenIds"
           :value="item"
           :key="`search-col-${item}`">{{ item }}</Option>
       </Select>
@@ -455,7 +455,7 @@ export default {
         }
         return res
       })
-      this.tokenIds = this.tokenIds.length === 0 ? Object.keys(tokenIds) : this.tokenIds
+      this.tokenIds = this.tokenIds.length === 0 ? Object.keys(tokenIds).sort((a, b) => a.localeCompare(b)) : this.tokenIds
       this.status = this.status.length === 0 ? Object.keys(status) : this.status
       this.reason = this.reason.length === 0 ? Object.keys(reason) : this.reason
       this.tokenTypes = this.tokenTypes.length === 0 ? Object.keys(tokenTypes) : this.tokenTypes

@@ -23,8 +23,8 @@ Main.page-exchange
                 Input(v-model='createForm.to', , :placeholder="$lang('请输入',$lang('To'))" , :disabled="nextType=='edit'")
             FormItem(:label='$lang("交易hash")')
                 Input(v-model='createForm.tx_hash', , :placeholder="$lang('请输入',$lang('交易hash'))", :disabled="nextType=='edit'")
-            FormItem(:label='$lang("broker订单ID")')
-                Input(v-model='createForm.broker_order_id', , :placeholder="$lang('请输入',$lang('broker订单ID'))", :disabled="nextType=='edit'")
+            FormItem(:label='$lang("交易所订单ID")')
+                Input(v-model='createForm.broker_order_id', , :placeholder="$lang('请输入',$lang('交易所订单ID'))", :disabled="nextType=='edit'")
             FormItem(:label='$lang("金额")')
                 Input(v-model='createForm.amount', , :placeholder="$lang('请输入',$lang('金额'))", :disabled="nextType=='edit'")
             FormItem(:label='$lang("确认数")')
@@ -53,7 +53,7 @@ Main.page-exchange
           Col(span="6" style="text-align:left") {{$lang("交易hash")}}：
           Col(span="14") {{createForm.tx_hash}}
         Row
-          Col(span="6" style="text-align:left") {{$lang("broker订单ID")}}：
+          Col(span="6" style="text-align:left") {{$lang("交易所订单ID")}}：
           Col(span="14") {{createForm.broker_order_id}}
         Row
           Col(span="6" style="text-align:left") {{$lang("金额")}}：
@@ -126,13 +126,15 @@ const STATUS = {
                     tx_hash:"",
                     broker_order_id:"",
                     status: -1,
+                    "uid": "",
                 },
                 columns: [
                     {title: '币种ID', key: 'token_id'},
+                    {title: 'uid', key: 'uid'},
                     {title: 'From', key: 'from', minWidth: 80},
                     {title: 'To', key: 'to', minWidth: 80},
                     {title: '交易hash', key: 'tx_hash', minWidth: 100},
-                    {title: 'broker订单ID', key: 'broker_order_id'},
+                    {title: '交易所订单ID', key: 'broker_order_id'},
                     {title: '确认数', key: 'confirm'},
                     {title: '区块高度', key: 'block_height'},
                     {title: '金额', key: 'amount'},
@@ -196,7 +198,7 @@ const STATUS = {
                     }
                 ],
                 tableData: [],
-                searchOptions:["token_id","from", "to", "tx_hash", "broker_order_id", "status"],
+                searchOptions:["token_id","from", "to", "tx_hash", "broker_order_id", "status", "uid"],
                 selectDataStore:[],
                 creatWinStatus: false,
                 detialWinSatus: false,
@@ -214,6 +216,7 @@ const STATUS = {
                     cost_fee: "",
                     gas_price: "",
                     status: -1,
+                    "uid": "",
                 },
                 editForm: {
                     id: "",
@@ -235,6 +238,7 @@ const STATUS = {
                   tx_hash:"",
                   broker_order_id:"",
                   status: -1,
+                  "uid": "",
             }
           },
             loadData() {

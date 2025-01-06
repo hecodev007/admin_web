@@ -131,6 +131,7 @@ export default {
       },
       columns: [
         {title: '币种ID', key: 'token_id'},
+        {title: 'uid', key: 'uid'},
         {title: 'From', key: 'from', minWidth: 80},
         {title: 'To', key: 'to', minWidth: 80},
         {title: '交易hash', key: 'tx_hash', minWidth: 100},
@@ -138,6 +139,7 @@ export default {
         {title: '确认数', key: 'confirm'},
         {title: '区块高度', key: 'block_height'},
         {title: '状态', key: 'status', minWidth: 50, editable: true},
+        {title: 'updated_time', key: 'updated_at', minWidth: 80},
         {
           title: '操作', minWidth: 80,
           key: 'handle',
@@ -195,7 +197,7 @@ export default {
         }
       ],
       tableData: [],
-      searchOptions: ["token_id", "from", "to", "tx_hash", "status"],
+      searchOptions: ["token_id", "from", "to", "tx_hash", "status", "uid"],
       selectDataStore: [],
       creatWinStatus: false,
       detialWinSatus: false,

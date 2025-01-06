@@ -306,6 +306,9 @@ export default {
       if (searchKey === 'tx_hash') {
         this.requestDataForm.tx_hash = searchValue;
       }
+      if( searchKey === 'uid'){
+          this.requestDataForm.uid = searchValue;
+      }
       if (searchKey === 'status') {
         const statusKey = Object.keys(STATUS).find(key => STATUS[key] === searchValue);
         if (statusKey !== undefined) {

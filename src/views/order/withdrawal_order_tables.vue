@@ -290,7 +290,7 @@ const STATUS = {
                 this.deleteSelected(ids);
             },
             handleSearch(searchKey, searchValue) {
-            this.reset();
+                this.reset();
                 //this.loadingTable = true;
                 if( searchKey === 'token_id'){
                     this.requestDataForm.token_id = searchValue;
@@ -306,6 +306,9 @@ const STATUS = {
                 }
                 if( searchKey === 'broker_order_id'){
                     this.requestDataForm.broker_order_id = searchValue;
+                }
+                if( searchKey === 'uid'){
+                    this.requestDataForm.uid = searchValue;
                 }
                 if( searchKey === 'status'){
                   const statusKey = Object.keys(STATUS).find(key => STATUS[key] === searchValue);

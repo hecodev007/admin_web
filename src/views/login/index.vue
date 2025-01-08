@@ -104,7 +104,7 @@ export default {
             if (result.code === 10000) {
               if(result.data.googleBind){
                 this.step = 1;
-                this.getImg()
+                this.getImg(username)
               } else {
                 this.step = 2;
               }
@@ -146,8 +146,8 @@ export default {
         }
       });
     },
-    getImg(){
-      this.$axios.get("/api/v1/user/get_google_code").then(res => {
+    getImg(username){
+      this.$axios.get("/api/v1/user/get_google_code", { username }).then(res => {
         if (res.code === 10000) {
           this.qrCode = res.data.secret_url;
         }

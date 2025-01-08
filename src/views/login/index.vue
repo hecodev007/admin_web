@@ -147,7 +147,7 @@ export default {
       });
     },
     getImg(username){
-      this.$axios.get("/api/v1/user/get_google_code", { username }).then(res => {
+      this.$axios.get("/api/v1/user/get_google_code", {params: { username }}).then(res => {
         if (res.code === 10000) {
           this.qrCode = res.data.secret_url;
         }

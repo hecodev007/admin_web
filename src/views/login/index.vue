@@ -118,7 +118,8 @@ export default {
         if (valid) {
           this.loading = true;
           const code = this.formGoogleCode.code;
-          this.$axios.post("/api/v1/user/google_verify", { code }).then(res => {
+          const username = this.formItem.username;
+          this.$axios.post("/api/v1/user/google_verify", { username, code }).then(res => {
             this.loading = false;
             if (res.code === 10000) {
               this.jump(res)
@@ -134,7 +135,8 @@ export default {
         if (valid) {
           this.loading = true;
           const code = this.formGoogleCode.code;
-          this.$axios.post("/api/v1/user/google_code_bind", { code }).then(res => {
+          const username = this.formItem.username;
+          this.$axios.post("/api/v1/user/google_code_bind", { username, code }).then(res => {
             if (res.code === 10000) {
               this.jump(res)
             } else if (res.code === 10001) {

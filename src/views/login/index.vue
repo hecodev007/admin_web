@@ -44,6 +44,7 @@ export default {
       step: 0,
       loading: false,
       qrCode: "",
+      secret: '',
       formItem: {
         username: "",
         password: ""
@@ -119,7 +120,7 @@ export default {
           this.loading = true;
           const code = this.formGoogleCode.code;
           const username = this.formItem.username;
-          this.$axios.post("/api/v1/user/google_verify", { username, code }).then(res => {
+          this.$axios.post("/api/v1/user/google_verify", { username, code, secret: this.secret }).then(res => {
             this.loading = false;
             if (res.code === 10000) {
               this.jump(res)
@@ -136,7 +137,7 @@ export default {
           this.loading = true;
           const code = this.formGoogleCode.code;
           const username = this.formItem.username;
-          this.$axios.post("/api/v1/user/google_code_bind", { username, code }).then(res => {
+          this.$axios.post("/api/v1/user/google_code_bind", { username, code, secret: this.secret }).then(res => {
             if (res.code === 10000) {
               this.jump(res)
             } else if (res.code === 10001) {
@@ -146,10 +147,11 @@ export default {
         }
       });
     },
-    getImg(username){
-      this.$axios.get("/api/v1/user/get_google_code", {params: { username }}).then(res => {
+    getImg(user_name){
+      this.$axios.get("/api/v1/user/get_google_code", {params: { user_name }}).then(res => {
         if (res.code === 10000) {
           this.qrCode = res.data.secret_url;
+          this.secret = res.data.secret;
         }
       });
     },

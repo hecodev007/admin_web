@@ -37,6 +37,7 @@
 // function
 import { refreshRoute } from "@/router"; // 路由初始化，清空动态路由
 import { localSave } from "@/libs/util";
+import QRCode from "qrcode";
 
 export default {
   data() {
@@ -150,8 +151,10 @@ export default {
     getImg(user_name){
       this.$axios.get("/api/v1/user/get_google_code", {params: { user_name }}).then(res => {
         if (res.code === 10000) {
-          this.qrCode = res.data.secret_url;
           this.secret = res.data.secret;
+          QRCode.toDataURL(res.data.secret_url, (err, url) =>{
+              this.qrCode = url;
+          });
         }
       });
     },

@@ -349,7 +349,7 @@ export default {
             tokenIds[el.token_id] = el.token_id
           });
           if (this.tokenIds.length === 0){
-            this.tokenIds = Object.keys(tokenIds)
+            this.tokenIds = Object.keys(tokenIds).sort((a, b) => a.localeCompare(b))
           }
         }
       });

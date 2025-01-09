@@ -80,8 +80,10 @@ Main.page-exchange
                     token_type: 0,
                     account_id: "",
                     address: "",
+                    uid:""
                 },
                 columns: [
+                    {title: 'uid', key: 'uid'},
                     {title: this.$lang('币种类型'), key: 'token_type'},
                     {title: 'AccountId', key: 'account_id', minWidth: 100},
                     {title: this.$lang('地址'), key: 'address', minWidth: 200},
@@ -144,7 +146,7 @@ Main.page-exchange
                     }
                 ],
                 tableData: [],
-                searchOptions:["token_type","address","account_id"],
+                searchOptions:["token_type","address","account_id", "uid"],
                 selectDataStore:[],
                 creatWinStatus: false,
                 detialWinSatus: false,
@@ -177,6 +179,7 @@ Main.page-exchange
                     token_type: 0,
                     account_id: "",
                     address: "",
+                    uid:"",
                 }
             },
             loadData() {
@@ -243,6 +246,9 @@ Main.page-exchange
                 }
                 if( searchKey === 'account_id'){
                     this.requestDataForm.account_id = String(searchValue);
+                }
+                if( searchKey === 'uid'){
+                    this.requestDataForm.uid = searchValue;
                 }
                 this.requestDataForm.current = 1;
                 this.$axios.get("/api/v1/account_address", {params: this.requestDataForm}).then(result => {

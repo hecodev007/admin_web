@@ -1,6 +1,6 @@
 <template lang="pug">
 Main.page-exchange
-    tables(ref="tables",searchable, :addable="addable", :deleteable="deleteable",:customInputable="customInputable", customInputTip="输入统计天数(默认10天)", :loading="loadingTable", :search-place="top",v-model="tableData", :columns="columns",
+    tables(ref="tables",searchable, :addable="addable", :deleteable="deleteable",:customInputable="customInputable", customInputTip="输入统计天数(默认10天)", :loading="loadingTable", :search-place="top",v-model="tableData", :columns="columns", :customTokenIds="customTokenIds",
       :searchOptions="searchOptions", @on-search="handleSearch" , @on-CustomInput="handleCustomInput" )
     Row
         Col(span="12")
@@ -48,14 +48,15 @@ Main.page-exchange
                 ],
                 tableData: [],
                 searchOptions:["token_id"],
-                reportDays:10
+                reportDays:10,
+                customTokenIds: ['BTC', 'ETH', 'BNB'],
             }
         },
         methods: {
             loadData() {
                 this.loadingTable = true;
                 this.requestDataForm.token_id = "BTC";
-                this.$axios.get("/api/v1/order_flows", {params: this.requestDataForm}).then(result => {
+                this.$axios.get("http://localhost:9000/api/v1/order_flows", {params: this.requestDataForm}).then(result => {
                     this.loadingTable = false;
                     this.loading = false;
                     setTimeout(() => {
@@ -80,7 +81,7 @@ Main.page-exchange
 
                 this.requestDataForm.days = this.reportDays;
 
-                this.$axios.get("/api/v1/order_flows", {params: this.requestDataForm}).then(result => {
+                this.$axios.get("http://localhost:9000/api/v1/order_flows", {params: this.requestDataForm}).then(result => {
                     this.loadingTable = false;
                     this.loading = false;
                     setTimeout(() => {

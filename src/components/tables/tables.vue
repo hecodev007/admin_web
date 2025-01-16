@@ -316,6 +316,12 @@ export default {
     searchPlace: {
       type: String,
       default: 'top'
+    },
+    customTokenIds: {
+      type: Array,
+      default() {
+        return []
+      }
     }
   },
   /**
@@ -455,7 +461,7 @@ export default {
         }
         return res
       })
-      this.tokenIds = this.tokenIds.length === 0 ? Object.keys(tokenIds).sort((a, b) => a.localeCompare(b)) : this.tokenIds
+      this.tokenIds = this.customTokenIds.length === 0 ? this.tokenIds.length === 0 ? Object.keys(tokenIds).sort((a, b) => a.localeCompare(b)) : this.tokenIds : this.customTokenIds
       this.status = this.status.length === 0 ? Object.keys(status) : this.status
       this.reason = this.reason.length === 0 ? Object.keys(reason) : this.reason
       this.tokenTypes = this.tokenTypes.length === 0 ? Object.keys(tokenTypes) : this.tokenTypes

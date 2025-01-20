@@ -24,7 +24,6 @@
       </Select>
       <!-- {{searchOptions}} -->
       <!-- {{columns}} -->
-      {{ JSON.stringify(searchOptions) }}
       <Select
         v-model="searchKey"
         class="search-col" 

@@ -3,20 +3,41 @@
     <div
       v-if="searchable && searchPlace === 'top'"
       class="search-con search-con-top">
+      <Select
+        v-model="chainId"
+        class="search-col" 
+        v-if="chainIds.length">
+        <Option
+          v-for="item in chainIds"
+          :value="item.token_id"
+          :key="`search-col-${item.token_id}`">{{ item.token_id }}</Option>
+      </Select>
+      <Select
+        v-model="searchValue"
+        class="search-col"
+        v-if="customTokenIds.length">
+        >
+        <Option
+          v-for="item in customTokenIds"
+          :value="item"
+          :key="`search-col-${item.token_id}`">{{ item.token_id }}</Option>
+      </Select>
       <!-- {{searchOptions}} -->
       <!-- {{columns}} -->
+      {{ JSON.stringify(searchOptions) }}
       <Select
         v-model="searchKey"
-        class="search-col">
+        class="search-col" 
+        v-if="searchOptions.length && !chainIds.length">
         <Option
           v-for="item in columns"
-          v-if="searchOptions.indexOf(item.key) > -1 "
+          v-if="searchOptions.indexOf(item.key) > -1"
           :value="item.key"
           :key="`search-col-${item.key}`">{{ item.title }}</Option>
       </Select>
       <!-- {{ searchKey }} -->
       <Input
-        v-if="searchKey !== 'token_id' && searchKey !== 'wallet_owner' && searchKey !== 'status' && searchKey !== 'reason' && searchKey !== 'token_type' && searchKey !== 'type' && searchKey !== 'owner'"
+        v-if="searchKey !== 'token_id' && searchKey !== 'wallet_owner' && searchKey !== 'status' && searchKey !== 'reason' && searchKey !== 'token_type' && searchKey !== 'type' && searchKey !== 'owner' && !chainIds.length"
         @on-change="handleClear"
         clearable
         :placeholder='$lang("关键词")'
@@ -322,6 +343,12 @@ export default {
       default() {
         return []
       }
+    },
+    chainIds: {
+      type: Array,
+      default() {
+        return []
+      }
     }
   },
   /**
@@ -353,6 +380,7 @@ export default {
       types: [],
       owners: [],
       walletTypes: ['个人', '热钱包', '冷钱包'],
+      chainId: ''
     }
   },
   methods: {
@@ -424,7 +452,7 @@ export default {
       if (this.searchOffline === true) {
         this.insideTableData = this.value.filter(item => item[this.searchKey].indexOf(this.searchValue) > -1)
       } else {
-        this.$emit('on-search', this.searchKey, this.searchValue)
+        this.$emit('on-search', this.searchKey, this.searchValue, this.chainId)
       }
     },
     handleCustomInput() {
@@ -461,7 +489,7 @@ export default {
         }
         return res
       })
-      this.tokenIds = this.customTokenIds.length === 0 ? this.tokenIds.length === 0 ? Object.keys(tokenIds).sort((a, b) => a.localeCompare(b)) : this.tokenIds : this.customTokenIds
+      this.tokenIds = this.tokenIds.length === 0 ? Object.keys(tokenIds).sort((a, b) => a.localeCompare(b)) : this.tokenIds
       this.status = this.status.length === 0 ? Object.keys(status) : this.status
       this.reason = this.reason.length === 0 ? Object.keys(reason) : this.reason
       this.tokenTypes = this.tokenTypes.length === 0 ? Object.keys(tokenTypes) : this.tokenTypes
@@ -526,6 +554,9 @@ export default {
     },
     searchKey() {
       this.searchValue = ''
+    },
+    chainId() {
+      this.$emit('on-chain', this.chainId)
     }
   },
   mounted() {

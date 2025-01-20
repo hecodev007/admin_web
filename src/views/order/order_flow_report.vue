@@ -1,7 +1,7 @@
 <template lang="pug">
 Main.page-exchange
-    tables(ref="tables",searchable, :addable="addable", :deleteable="deleteable",:customInputable="customInputable", customInputTip="输入统计天数(默认10天)", :loading="loadingTable", :search-place="top",v-model="tableData", :columns="columns", :customTokenIds="customTokenIds",
-      :searchOptions="searchOptions", @on-search="handleSearch" , @on-CustomInput="handleCustomInput" )
+    tables(ref="tables",searchable, :addable="addable", :deleteable="deleteable",:customInputable="customInputable", customInputTip="输入统计天数(默认10天)", :loading="loadingTable", :search-place="top",v-model="tableData", :columns="columns", :customTokenIds="customTokenIds", :chainIds="chainIds",
+      :searchOptions="searchOptions", @on-search="handleSearch" , @on-CustomInput="handleCustomInput" @on-chain="handleChain") )
     Row
         Col(span="12")
             Button(style={margin: '10px 0'} type="primary" @click="exportExcel") 导出为Csv文件
@@ -47,16 +47,22 @@ Main.page-exchange
 
                 ],
                 tableData: [],
-                searchOptions:["token_id"],
+                chainIds: [],
+                searchOptions:[],
                 reportDays:10,
-                customTokenIds: ['BTC', 'ETH', 'BNB'],
+                customTokenIds: [],
             }
         },
         methods: {
             loadData() {
+                this.$axios.get("/api/v1/get_chains").then(result => {
+                    if (result.code === 10000) {
+                    this.chainIds = result.data;
+                    }
+                });
                 this.loadingTable = true;
                 this.requestDataForm.token_id = "BTC";
-                this.$axios.get("http://localhost:9000/api/v1/order_flows", {params: this.requestDataForm}).then(result => {
+                this.$axios.get("/api/v1/order_flows", {params: this.requestDataForm}).then(result => {
                     this.loadingTable = false;
                     this.loading = false;
                     setTimeout(() => {
@@ -81,7 +87,7 @@ Main.page-exchange
 
                 this.requestDataForm.days = this.reportDays;
 
-                this.$axios.get("http://localhost:9000/api/v1/order_flows", {params: this.requestDataForm}).then(result => {
+                this.$axios.get("/api/v1/order_flows", {params: this.requestDataForm}).then(result => {
                     this.loadingTable = false;
                     this.loading = false;
                     setTimeout(() => {
@@ -98,6 +104,12 @@ Main.page-exchange
                     filename: `table-${(new Date()).valueOf()}.csv`
                 })
             },
+
+            handleChain(chainId) {
+                this.$axios.get("/api/v1/get_token_ids", {params: { id: chainId }}).then(result => {
+                    this.customTokenIds = result.data;
+                });
+            }
         },
 
         mounted() {

@@ -81,9 +81,9 @@ Main.page-exchange
             handleSearch(searchKey, searchValue) {
                 this.loadingTable = true;
 
-                if( searchKey === 'token_id'){
+                // if( searchKey === 'token_id'){
                     this.requestDataForm.token_id = searchValue;
-                }
+                // }
 
                 this.requestDataForm.days = this.reportDays;
 

@@ -19,7 +19,7 @@
         >
         <Option
           v-for="item in customTokenIds"
-          :value="item"
+          :value="item.token_id"
           :key="`search-col-${item.token_id}`">{{ item.token_id }}</Option>
       </Select>
       <!-- {{searchOptions}} -->

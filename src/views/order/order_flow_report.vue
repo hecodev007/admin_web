@@ -106,7 +106,7 @@ Main.page-exchange
             },
 
             handleChain(chainId) {
-                this.$axios.get("/api/v1/get_token_ids", {params: { id: chainId }}).then(result => {
+                this.$axios.get("/api/v1/get_token_ids", {params: { token_id: chainId }}).then(result => {
                     this.customTokenIds = result.data;
                 });
             }

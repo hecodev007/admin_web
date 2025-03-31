@@ -84,8 +84,10 @@
         Button(type="primary" long @click="detialWinSatus=false") {{$lang("确定")}}
 
     Modal.page-exchange-win(v-model="resendSatus", :title="createForm.broker_order_id", @on-ok="modalResend = true" :loading="loading")
-      Select( v-model="resendType", class="search-col")
+      Select( v-model="resendType", class="search-col", @input="handleResendTypeChange")
         Option( v-for="item in resendTypeList" :value="item.key" :key="`search-col-${item.key}`") {{ item.value }}
+      template(v-if="isGasPrice")
+        Input(v-model='gasPrice', style="margin-top: 24px;", placeholder="请输入gasprice")
 
 
     Modal(v-model="modalResend" title="NOTICE" @on-ok="Resend" )
@@ -105,6 +107,8 @@ export default {
     return {
       top: "top",
       resendType: 1,
+      isGasPrice: false,
+      gasPrice: '',
       loading: false,
       loadingTable: true,
       addable: false,
@@ -212,6 +216,10 @@ export default {
         {
           key: 5,
           value: '提高gas重发'
+        },
+        {
+          key: 6,
+          value: '失败订单重发'
         }
       ],
       tableData: [],
@@ -248,6 +256,7 @@ export default {
         id: "",
         broker_order_id: "",
         type: 0,
+        gas_price: '',
       },
     }
   },
@@ -380,6 +389,7 @@ export default {
       this.resendForm.id = Number(this.createForm.id);
       this.resendForm.type = Number(this.resendType);
       this.resendForm.broker_order_id = String(this.createForm.broker_order_id);
+      this.resendForm.gas_price = this.gasPrice;
       this.$axios.post("/api/v1/resend_orders", this.resendForm).then(result => {
         this.loading = false;
         setTimeout(() => {
@@ -458,6 +468,15 @@ export default {
       } else {
         this.saveEdit(this.createForm.id, this.createForm.status, this.createForm.cost_fee)
 
+      }
+    },
+    handleResendTypeChange(val) {
+      this.gasPrice = '';
+      this.resendForm.gas_price = '';
+      if(val == 5 || val == 6) {
+        this.isGasPrice = true;
+      } else {
+        this.isGasPrice = false;
       }
     }
   },

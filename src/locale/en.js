@@ -560,4 +560,6 @@ export default {
   适用资产信息: "Available org asset",
   所有资产信息: "All org asset",
   链ID: "ChainID",
+  人工补录: "Manual Record",
+  请输入正确的金额: "Please enter the correct amount",
 };

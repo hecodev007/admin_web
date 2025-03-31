@@ -258,6 +258,14 @@ const routes = [
         component: () => import('@/views/order/exception_withdrawal_order.vue')
       },
       {
+        path: "/exception/resend_charge",
+        name: "resendCharge",
+        meta: {
+          name: "人工补录"
+        },
+        component: () => import('@/views/order/resend_charge.vue')
+      },
+      {
         path: "/exception/redis",
         name: "redis",
         meta: {

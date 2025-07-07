@@ -1,9 +1,9 @@
 <template lang="pug">
 Main.page-exchange
     tables(ref="tables", editable, searchable, :addable="addable", :deleteable="deleteable", :loading="loadingTable", :search-place="top",v-model="tableData", :columns="columns",
-      :searchOptions="searchOptions", @on-search="handleSearch" @on-save-edit="handleSaveEdit"
-      @on-delete="handleDelete"  @on-select-all="selectItemAll" @on-select="selectItem"  @on-select-cancel="cancelItem" @on-selection-change="selectChange"
-      @on-add-row="handleAddRow" @on-delete-selected="handleDeleteSelected")
+      :searchOptions="searchOptions", @on-search="handleSearch"
+      @on-select-all="selectItemAll" @on-select="selectItem"  @on-select-cancel="cancelItem" @on-selection-change="selectChange"
+      @on-delete-selected="handleDeleteSelected")
     Row
         Col(span="12")
             Button(style={margin: '10px 0'} type="primary" @click="exportExcel") 导出为Csv文件
@@ -224,16 +224,16 @@ const STATUS = {
             loadData() {
                 this.loadingTable = true;
 
-                this.$axios.get("http://localhost:9000/api/v1/orders", {params: this.requestDataForm}).then(result => {
+                this.$axios.get("/api/v1/orders", {params: this.requestDataForm}).then(result => {
                     this.loadingTable = false;
                     this.loading = false;
                     setTimeout(() => {
                         this.loading = true;
                     }, 200);
-                    // if (result.code === 10000) {
+                    if (result.code === 10000) {
                         this.tableData = result.data ? result.data : [];
                         this.total = result.total;
-                    // }
+                    }
                 });
             },
             selectItem(selection, row) {

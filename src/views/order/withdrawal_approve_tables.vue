@@ -96,7 +96,7 @@ const STATUS = {
                     current: 1,
                     page_size: 20,
                     token_id: "",
-                    type:2,
+                    type:4,
                     from:"",
                     to:"",
                     tx_hash:"",
@@ -150,6 +150,7 @@ const STATUS = {
                                             click: () => {
                                                 this.detialWinSatus = true;
                                                 Object.assign(this.createForm, params.row);
+                                                this.editForm.status = 0
                                                 this.type = "approval";
                                             }
                                         }
@@ -168,6 +169,7 @@ const STATUS = {
                                                 // Object.assign(this.createForm, params.row);
                                                 this.detialWinSatus = true;
                                                 Object.assign(this.createForm, params.row);
+                                                this.editForm.status = 101
                                                 this.type = "reject";
                                             }
                                         }
@@ -200,8 +202,8 @@ const STATUS = {
                 },
                 editForm: {
                     id: "",
-                    type: 2,
-                    status: "",
+                    type: 4,
+                    status: 0,
                     cost_fee: "",
                 },
             }
@@ -317,7 +319,7 @@ const STATUS = {
                 })
             },
             handleApproval() {
-                this.$axios.put(this.type === 'approval' ? "/api/v1/approval_order" : "/api/v1/reject_order", this.editForm).then(result => {
+                this.$axios.put("/api/v1/update_order", this.editForm).then(result => {
                     this.loading = false;
                     setTimeout(() => {
                         this.loading = true;

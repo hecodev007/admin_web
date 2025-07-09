@@ -149,7 +149,7 @@ const STATUS = {
                                         on: {
                                             click: () => {
                                                 this.detialWinSatus = true;
-                                                Object.assign(this.createForm, params.row);
+                                                Object.assign(this.editForm, params.row);
                                                 this.editForm.status = 0
                                                 this.type = "approval";
                                             }
@@ -168,7 +168,7 @@ const STATUS = {
                                                 // this.nextType = "edit";
                                                 // Object.assign(this.createForm, params.row);
                                                 this.detialWinSatus = true;
-                                                Object.assign(this.createForm, params.row);
+                                                Object.assign(this.editForm, params.row);
                                                 this.editForm.status = 101
                                                 this.type = "reject";
                                             }

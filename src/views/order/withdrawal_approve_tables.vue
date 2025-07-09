@@ -149,8 +149,11 @@ const STATUS = {
                                         on: {
                                             click: () => {
                                                 this.detialWinSatus = true;
-                                                Object.assign(this.editForm, params.row);
+                                                Object.assign(this.createForm, params.row);
                                                 this.editForm.status = 0
+                                                this.editForm.id = +params.row.id
+                                                this.editable.cost_fee	= params.row.cost_fee;
+                                                this.editable.type	= params.row.type;
                                                 this.type = "approval";
                                             }
                                         }
@@ -168,8 +171,11 @@ const STATUS = {
                                                 // this.nextType = "edit";
                                                 // Object.assign(this.createForm, params.row);
                                                 this.detialWinSatus = true;
-                                                Object.assign(this.editForm, params.row);
+                                                Object.assign(this.createForm, params.row);
                                                 this.editForm.status = 101
+                                                this.editForm.id = +params.row.id
+                                                this.editable.cost_fee	= params.row.cost_fee;
+                                                this.editable.type	= params.row.type;
                                                 this.type = "reject";
                                             }
                                         }

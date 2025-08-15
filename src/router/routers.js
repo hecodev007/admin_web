@@ -250,6 +250,14 @@ const routes = [
         component: () => import('@/views/order/withdrawal_approve_tables.vue')
       },
       {
+        path: "/order/kytRefund",
+        name: "KYTRefund",
+        meta: {
+          name: "KYT退款"
+        },
+        component: () => import('@/views/order/kytRefund.vue')
+      },
+      {
         path: "/order/collect_order",
         name: "collectOrder",
         meta: {

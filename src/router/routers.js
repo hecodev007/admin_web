@@ -242,6 +242,14 @@ const routes = [
         component: () => import('@/views/order/withdrawal_order_tables.vue')
       },
       {
+        path: "/order/withdrawal_approve",
+        name: "withdrawalApprove",
+        meta: {
+          name: "提币审核"
+        },
+        component: () => import('@/views/order/withdrawal_approve_tables.vue')
+      },
+      {
         path: "/order/collect_order",
         name: "collectOrder",
         meta: {

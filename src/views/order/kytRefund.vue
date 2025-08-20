@@ -150,7 +150,7 @@ const STATUS = {
                                             click: () => {
                                                 this.detialWinSatus = true;
                                                 Object.assign(this.createForm, params.row);
-                                                this.editForm.status = 1
+                                                this.editForm.status = 100
                                                 this.editForm.id = +params.row.id
                                                 this.editable.cost_fee	= params.row.cost_fee;
                                                 this.editable.type	= params.row.type;
@@ -172,7 +172,7 @@ const STATUS = {
                                                 // Object.assign(this.createForm, params.row);
                                                 this.detialWinSatus = true;
                                                 Object.assign(this.createForm, params.row);
-                                                this.editForm.status = 100
+                                                this.editForm.status = 1
                                                 this.editForm.id = +params.row.id
                                                 this.editable.cost_fee	= params.row.cost_fee;
                                                 this.editable.type	= params.row.type;
